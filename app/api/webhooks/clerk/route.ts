@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
     // CREATE
     if (eventType === "user.created") {
+        console.log("user.created")
       const {
         id,
         email_addresses,
