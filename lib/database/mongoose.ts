@@ -17,12 +17,19 @@ export const connectToDatabase = async () =>{
     console.log('Connecting to database...')
     if(cached.conn) return cached.conn
     if(!MONGODB_URL) throw new Error('Missing MONGODB_URL')
-    
-    cached.promise = cached.promise || 
-    mongoose.connect(MONGODB_URL ,
-         {dbName:"imaginify" , bufferCommands:false}) 
+     try {
+       cached.promise =
+         cached.promise ||
+         mongoose.connect(MONGODB_URL, {
+           dbName: "imaginify",
+           bufferCommands: false,
+         });
 
-    cached.conn = await cached.promise
-    console.log('Connected to database',cached.conn)
+       cached.conn = await cached.promise;
+       console.log("✅ Connected to database successfully");
+     } catch (error) {
+       console.error("❌ Failed to connect to database:", error);
+       throw error; // Let it bubble if needed
+     }
     return cached.conn
 }
