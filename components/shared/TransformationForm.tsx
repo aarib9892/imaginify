@@ -36,13 +36,15 @@ import { aspectRatioOptions, defaultValues, transformationTypes } from "@/consta
 import { CustomField } from "./CustomField";
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import MediaUploader from "./MediaUploader";
+import TransformedImage from "./TransformedImage";
+import { updateCredits } from "@/lib/actions/user.actions";
 
 const TransformationForm = ({action , data=null , userId , type , creditBalance ,config=null}:TransformationFormProps) => {
   const transformationType = transformationTypes[type]
   const [image, setImage] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
-  const [transformationconfig, setTransformationConfig] = useState(config);
+  const [transformationConfig, setTransformationConfig] = useState(config);
   const [newTransformation, setNewTransformation] = useState<Transformations | null>(null);
   const [isPending , startTransition] = useTransition()
     const initialValues =
@@ -90,15 +92,17 @@ const TransformationForm = ({action , data=null , userId , type , creditBalance 
 
     return onChangeField(value)
   }
-  //TODO:Return to config credits
+  //TODO: UPDATE credit fee 
   const onTransformationHandler = async () => {
     setIsTransforming(true)
     setTransformationConfig(
-      deepMergeObjects(newTransformation,transformationconfig)
+      deepMergeObjects(newTransformation,transformationConfig)
 
     )
     setNewTransformation(null)
-    startTransition(() => {})
+    startTransition(async () => {
+      await updateCredits(userId,-1)
+    })
   }
    return (
      <Form {...form}>
@@ -203,6 +207,16 @@ const TransformationForm = ({action , data=null , userId , type , creditBalance 
 
          )}
          />
+
+         <TransformedImage
+         image={image}
+         type={type}
+         title={form.getValues().title}
+         isTransforming={isTransforming}
+         setIsTransforming={setIsTransforming}
+         transformationConfig={transformationConfig}
+
+/>
 
          </div>
          <div className="flex flex-col gap-4">
