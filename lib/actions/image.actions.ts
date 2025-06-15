@@ -5,8 +5,7 @@ import { connectToDatabase } from "../database/mongoose"
 import { handleError } from "../utils"
 import User from "../database/models/user.model"
 import Image from "../database/models/image.model"
-import { redirect } from "next/dist/server/api-utils"
-
+import { redirect } from "next/navigation"
 const populateUser = (query:any) => query.populate({
     path:'author',
     model:User,

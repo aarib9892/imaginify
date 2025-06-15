@@ -5,7 +5,7 @@ import { debounce } from '@/lib/utils'
 import { dataUrl } from '@/lib/utils'
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
 
-const TransformedImage = ({image , type , title,transformationConfig,isTransforming,setIsTransforming,hasDownload=false}:TransformationImageProps) => {
+const TransformedImage = ({image , type , title,transformationConfig,isTransforming,setIsTransforming,hasDownload=false}:TransformedImageProps) => {
     const downloadHandler = () =>{
 
     }
