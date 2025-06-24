@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import CreateCartButton from '../CreateCartButton'
 import { Button } from '../ui/button'
 
 const Sidebar = () => {
@@ -86,7 +85,7 @@ const Sidebar = () => {
             <Button asChild className="button bg-purple-gradient bg-cover">
               <Link href={"/sign-in"}>Login</Link>
             </Button>
-            <CreateCartButton/>
+        
           </SignedOut>
         </nav>
       </div>
