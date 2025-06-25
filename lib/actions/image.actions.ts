@@ -12,7 +12,7 @@ const populateUser = (query: any) =>
   query.populate({
     path: "author",
     model: User,
-    select: "_id firstName lastName",
+    select: "_id firstName lastName clerkId",
   });
 //ADD IMAGE
 export async function addImage({ image, userId, path }: AddImageParams) {
@@ -46,6 +46,7 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
       { new: true }
     );
     revalidatePath(path);
+    console.log(updatedImage,'Updated')
     return JSON.parse(JSON.stringify(updatedImage));
   } catch (error) {
     handleError(error);

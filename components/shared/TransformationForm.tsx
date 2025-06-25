@@ -125,6 +125,7 @@ const TransformationForm = ({
         }
       }
       if (action === "Update") {
+        console.log( "UPDATED");
         try {
           const updatedImage = await updateImage({
             image: {
@@ -134,6 +135,7 @@ const TransformationForm = ({
             path: "/",
             userId,
           });
+          
 
           if (updatedImage) {
             router.push(`/transformations/${updatedImage._id}`);
@@ -159,6 +161,7 @@ const TransformationForm = ({
       aspectRatio: imageSize.aspectRatio,
     }));
     setNewTransformation(transformationType.config);
+    console.log(imageSize,'SIZE')
 
     return onChangeField(value);
   };
@@ -219,6 +222,7 @@ const TransformationForm = ({
                 onValueChange={(value) =>
                   onSelectFieldHandler(value, field.onChange)
                 }
+                value={field.value}
                 defaultValue={field.value}
               >
                 <SelectTrigger className="select-field">
