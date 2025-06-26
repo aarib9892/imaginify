@@ -39,6 +39,7 @@ const TransformedImage = ({image , type , title,transformationConfig,isTransform
 
       {image?.publicId && transformationConfig  ? (
         <div className="relative">
+         
           <CldImage
             width={getImageSize(type, image, "width")}
             height={getImageSize(type, image, "height")}

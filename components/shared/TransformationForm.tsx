@@ -174,16 +174,20 @@ const TransformationForm = ({
     debounce(() => {
       setNewTransformation((prev: any) => ({
         ...prev,
-        [type]: { ...prev.type },
-        [fieldName === "prompt" ? "prompt" : "to"]: value,
+        [type]: { ...prev?.[type] ,
+          [fieldName === "prompt" ? "prompt" : "to"]: value
+          
+        }
+       
       }));
-    }, 1000);
+    }, 1000)();
 
     return onChangeField(value);
   };
   //TODO: UPDATE credit fee
   const onTransformationHandler = async () => {
     setIsTransforming(true);
+    console.log(newTransformation,'NEWTRAN')
     setTransformationConfig(
       deepMergeObjects(newTransformation, transformationConfig)
     );
@@ -241,7 +245,7 @@ const TransformationForm = ({
         )}
 
         {(type === "recolor" || type === "remove") && (
-          <div className="prompy-field">
+          <div className="prompt-field">
             <CustomField
               control={form.control}
               formLabel={
